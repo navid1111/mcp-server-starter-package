@@ -22,13 +22,13 @@ Independent test criteria (manual)
 
 Tasks
 
-- [ ] T001 Create package manifest with CLI bin and dual-build scripts in package.json
-- [X] T002 Add TypeScript config for strict mode in tsconfig.json
-- [ ] T003 Add tsup config for ESM+CJS output in tsup.config.ts
-- [ ] T004 [P] Add ESLint config in .eslintrc.cjs and Prettier config in .prettierrc
-- [ ] T005 Add Jest config (ts-jest) in jest.config.ts and test script in package.json
-- [ ] T006 Configure changesets in .changeset/config.json and add .changeset/README.md
-- [ ] T007 Create base folders and stub files: src/cli/index.ts, src/lib/README.md, tests/README.md
+- [x] T001 Create package manifest with CLI bin and dual-build scripts in package.json
+- [x] T002 Add TypeScript config for strict mode in tsconfig.json
+- [x] T003 Add tsup config for ESM+CJS output in tsup.config.ts
+- [x] T004 [P] Add ESLint config in .eslintrc.cjs and Prettier config in .prettierrc
+- [x] T005 Add Jest config (ts-jest) in jest.config.ts and test script in package.json
+- [x] T006 Configure changesets in .changeset/config.json and add .changeset/README.md
+- [x] T007 Create base folders and stub files: src/cli/index.ts, src/lib/README.md, tests/README.md
 
 ---
 

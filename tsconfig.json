@@ -32,7 +32,7 @@
 
     // Project
     "composite": false,
-    "incremental": true,
+    "incremental": false,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
 
@@ -41,12 +41,5 @@
     "allowJs": false
   },
   "include": ["src/**/*"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build",
-    "tests",
-    "**/*.spec.ts",
-    "**/*.test.ts"
-  ]
+  "exclude": ["node_modules", "dist", "build", "tests", "**/*.spec.ts", "**/*.test.ts"]
 }

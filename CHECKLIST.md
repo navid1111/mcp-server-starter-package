@@ -44,46 +44,57 @@ Expected package size: ~41 KB (✅ Good!)
 ## 📝 Before Publishing
 
 1. **Check npm name availability:**
+
    ```bash
    npm view mcp-server-starter
    ```
+
    - [ ] Name available (404 error)
 
 2. **Login to npm:**
+
    ```bash
    npm login
    npm whoami
    ```
+
    - [ ] Logged in successfully
 
 3. **Final build:**
+
    ```bash
    npm run build
    ```
+
    - [ ] Build successful
 
 4. **Publish:**
    ```bash
    npm publish
    ```
+
    - [ ] Published successfully
 
 ## 🧪 After Publishing - Test
 
 1. **Global install test:**
+
    ```bash
    npm install -g mcp-server-starter
    mcp-server-starter --help
    ```
+
    - [ ] Works globally
 
 2. **npx test:**
+
    ```bash
    cd ~/Desktop
    npx mcp-server-starter init --name test-pkg
    cd test-pkg
    npm install && npm run build && npm start
    ```
+
    - [ ] Works with npx
 
 3. **Add tool test:**
@@ -91,6 +102,7 @@ Expected package size: ~41 KB (✅ Good!)
    npx mcp-server-starter add-tool --name calculator
    npm run build && npm start
    ```
+
    - [ ] Add tool works
 
 ## 🎉 Success Indicators

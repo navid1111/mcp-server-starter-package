@@ -5,6 +5,7 @@ This guide walks you through publishing your package to npm and testing it.
 ## 🎯 Pre-Publication Checklist
 
 ✅ **Completed:**
+
 - [x] Package.json metadata updated (author, repository, bugs, homepage)
 - [x] README.md created with usage examples
 - [x] LICENSE file created (MIT)
@@ -27,12 +28,14 @@ npm login
 ```
 
 Enter your:
+
 - Username
 - Password
 - Email
 - One-time password (if 2FA is enabled)
 
 Verify you're logged in:
+
 ```bash
 npm whoami
 ```
@@ -173,6 +176,7 @@ npm version major
 ```
 
 This will:
+
 1. Update version in package.json
 2. Create a git commit
 3. Create a git tag
@@ -203,6 +207,7 @@ npm run release
 ### Issue: "You do not have permission to publish"
 
 **Solution:**
+
 ```bash
 # Make sure you're logged in
 npm whoami
@@ -216,6 +221,7 @@ npm view mcp-server-starter
 ### Issue: "Package name too similar to existing package"
 
 **Solution:** Change the name in `package.json`:
+
 ```json
 {
   "name": "@yourusername/mcp-server-starter",
@@ -227,6 +233,7 @@ npm view mcp-server-starter
 ### Issue: "Version already published"
 
 **Solution:**
+
 ```bash
 # Bump version
 npm version patch
@@ -238,6 +245,7 @@ npm publish
 ### Issue: "Missing README"
 
 **Solution:** README.md already created, but verify:
+
 ```bash
 ls -la README.md
 ```

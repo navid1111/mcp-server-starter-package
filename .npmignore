@@ -1,0 +1,36 @@
+# Source files (only dist should be published)
+src/
+tests/
+specs/
+
+# Config files
+tsconfig.json
+tsconfig.test.json
+tsup.config.ts
+jest.config.ts
+jest.contract.config.ts
+.eslintrc.cjs
+.prettierrc
+.changeset/
+
+# Test files
+test-*.js
+test-*.bat
+*.test.ts
+*.spec.ts
+
+# Development
+node_modules/
+.git/
+.github/
+.vscode/
+
+# Build artifacts
+*.tsbuildinfo
+coverage/
+
+# Misc
+.DS_Store
+*.log
+.env
+.env.*

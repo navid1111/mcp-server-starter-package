@@ -10,12 +10,16 @@
     "cli",
     "generator"
   ],
-  "author": "",
+  "author": "navid1111",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/mcp-server-starter.git"
+    "url": "https://github.com/navid1111/mcp-server-starter-package.git"
   },
+  "bugs": {
+    "url": "https://github.com/navid1111/mcp-server-starter-package/issues"
+  },
+  "homepage": "https://github.com/navid1111/mcp-server-starter-package#readme",
   "engines": {
     "node": ">=18.0.0"
   },

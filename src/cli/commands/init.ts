@@ -8,7 +8,11 @@
  * - Configuration files
  */
 
+import { stdin as input, stdout as output } from 'node:process';
+import * as readline from 'node:readline/promises';
 import type { ArgumentsCamelCase, Argv } from 'yargs';
+import { generateProject } from '../../generators/project.js';
+import type { InitOptions as GeneratorInitOptions } from '../../types/generators.js';
 
 interface InitOptions {
   name?: string;
@@ -50,20 +54,94 @@ export function builder(yargs: Argv) {
     ]);
 }
 
-export function handler(argv: ArgumentsCamelCase<InitOptions>): void {
-  // eslint-disable-next-line no-console
-  console.log('Init command called with options:');
-  // eslint-disable-next-line no-console
-  console.log(JSON.stringify(argv, null, 2));
+export async function handler(argv: ArgumentsCamelCase<InitOptions>): Promise<void> {
+  try {
+    // Prompt for missing required options
+    let projectName = argv.name;
+    if (!projectName) {
+      const rl = readline.createInterface({ input, output });
+      projectName = await rl.question('Project name (kebab-case): ');
+      rl.close();
 
-  // TODO: Implement in Phase 3 (US1)
-  // - Prompt for missing options (name, description)
-  // - Validate inputs
-  // - Generate project structure
-  // - Copy template files
-  // - Install dependencies
-  // - Display success message
+      if (!projectName || projectName.trim() === '') {
+        // eslint-disable-next-line no-console
+        console.error('Error: Project name is required');
+        process.exit(1);
+      }
+    }
 
-  // eslint-disable-next-line no-console
-  console.log('\n[Placeholder] Project initialization logic will be implemented in Phase 3');
+    // Validate project name
+    if (!/^[a-z0-9-]+$/.test(projectName)) {
+      // eslint-disable-next-line no-console
+      console.error(
+        'Error: Project name must be kebab-case (lowercase letters, numbers, and hyphens only)'
+      );
+      process.exit(1);
+    }
+
+    // Build generator options
+    const options: GeneratorInitOptions = {
+      name: projectName,
+      description: argv.description,
+      preset: argv.preset,
+      withHttpAdapter: argv.withHttpAdapter,
+    };
+
+    // eslint-disable-next-line no-console
+    console.log(`\nGenerating MCP server project: ${projectName}...`);
+    // eslint-disable-next-line no-console
+    console.log(`Preset: ${options.preset}`);
+    if (options.withHttpAdapter) {
+      // eslint-disable-next-line no-console
+      console.log('HTTP adapter: enabled');
+    }
+    // eslint-disable-next-line no-console
+    console.log('');
+
+    // Generate the project
+    const result = await generateProject(options);
+
+    if (!result.success) {
+      // eslint-disable-next-line no-console
+      console.error(`\nError: ${result.error}`);
+      process.exit(1);
+    }
+
+    // Display success message
+    // eslint-disable-next-line no-console
+    console.log(`✓ Project created successfully!`);
+    // eslint-disable-next-line no-console
+    console.log(`\n${result.filesCreated.length} files created:`);
+    result.filesCreated.forEach((file) => {
+      // eslint-disable-next-line no-console
+      console.log(`  - ${file}`);
+    });
+
+    if (result.filesSkipped.length > 0) {
+      // eslint-disable-next-line no-console
+      console.log(`\n${result.filesSkipped.length} files skipped (already exist):`);
+      result.filesSkipped.forEach((file) => {
+        // eslint-disable-next-line no-console
+        console.log(`  - ${file}`);
+      });
+    }
+
+    // Next steps
+    // eslint-disable-next-line no-console
+    console.log(`\nNext steps:`);
+    // eslint-disable-next-line no-console
+    console.log(`  cd ${projectName}`);
+    // eslint-disable-next-line no-console
+    console.log(`  npm install`);
+    // eslint-disable-next-line no-console
+    console.log(`  npm run build`);
+    // eslint-disable-next-line no-console
+    console.log(`  npm start`);
+    // eslint-disable-next-line no-console
+    console.log('');
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Unexpected error:', (error as Error).message);
+    process.exit(1);
+  }
 }

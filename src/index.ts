@@ -15,6 +15,8 @@ export type * from './types/generators.js';
 export * as fsUtils from './lib/fs.js';
 export * as templateUtils from './lib/templates.js';
 
-// TODO: Export generators in later phases
-// export * from './generators/project.js';
+// Export generators (Phase 3)
+export * from './generators/project.js';
+
+// TODO: Export add-tool generator in Phase 4
 // export * from './generators/addTool.js';

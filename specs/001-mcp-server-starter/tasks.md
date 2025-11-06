@@ -62,17 +62,17 @@ Independent test criteria (manual)
 
 Tasks
 
-- [ ] T015 [US1] Create template: project package.json.tmpl in src/templates/project/package.json.tmpl
-- [ ] T016 [P] [US1] Create template: tsconfig.json.tmpl in src/templates/project/tsconfig.json.tmpl
-- [ ] T017 [P] [US1] Create template: server entry using @modelcontextprotocol/sdk and zod in src/templates/project/src/server.ts.tmpl
-- [ ] T018 [P] [US1] Create template: sample tool (echo) in src/templates/project/src/mcp/tools/echo.ts.tmpl
-- [ ] T019 [P] [US1] Create template: tool registry in src/templates/project/src/mcp/tools/index.ts.tmpl
-- [ ] T020 [P] [US1] Create template: README with quickstart in src/templates/project/README.md.tmpl
-- [ ] T021 [US1] Implement project generator (render/copy templates) in src/generators/project.ts
-- [ ] T022 [US1] Implement flags/prompts for name, description, preset (minimal default) in src/cli/commands/init.ts
-- [ ] T023 [US1] Add optional HTTP adapter toggle in init and plumb to templates in src/cli/commands/init.ts
-- [ ] T024 [US1] Create manual smoke script scaffold-and-run in scripts/smoke/scaffold-and-run.ps1
-- [ ] T025 [US1] Document manual test steps for US1 in docs/manual-tests/us1-smoke.md
+- [x] T015 [US1] Create template: project package.json.tmpl in src/templates/project/package.json.tmpl
+- [x] T016 [P] [US1] Create template: tsconfig.json.tmpl in src/templates/project/tsconfig.json.tmpl
+- [x] T017 [P] [US1] Create template: server entry using @modelcontextprotocol/sdk and zod in src/templates/project/src/server.ts.tmpl
+- [x] T018 [P] [US1] Create template: sample tool (echo) in src/templates/project/src/mcp/tools/echo.ts.tmpl
+- [x] T019 [P] [US1] Create template: tool registry in src/templates/project/src/mcp/tools/index.ts.tmpl
+- [x] T020 [P] [US1] Create template: README with quickstart in src/templates/project/README.md.tmpl
+- [x] T021 [US1] Implement project generator (render/copy templates) in src/generators/project.ts
+- [x] T022 [US1] Implement flags/prompts for name, description, preset (minimal default) in src/cli/commands/init.ts
+- [x] T023 [US1] Add optional HTTP adapter toggle in init and plumb to templates in src/cli/commands/init.ts (templates deferred to Phase 5/US3)
+- [x] T024 [US1] Create manual smoke script scaffold-and-run in scripts/smoke/scaffold-and-run.ps1
+- [x] T025 [US1] Document manual test steps for US1 in docs/manual-tests/us1-smoke.md
 
 Parallel execution examples
 

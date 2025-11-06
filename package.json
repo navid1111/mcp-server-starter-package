@@ -33,6 +33,7 @@
   },
   "files": [
     "dist",
+    "src/templates",
     "README.md",
     "LICENSE"
   ],

@@ -18,5 +18,5 @@ export * as templateUtils from './lib/templates.js';
 // Export generators (Phase 3)
 export * from './generators/project.js';
 
-// TODO: Export add-tool generator in Phase 4
-// export * from './generators/addTool.js';
+// Export add-tool generator (Phase 4)
+export * from './generators/addTool.js';

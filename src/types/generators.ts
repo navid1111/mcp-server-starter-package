@@ -34,6 +34,8 @@ export interface AddToolOptions {
   description?: string;
   /** Project directory (defaults to current directory) */
   projectDir?: string;
+  /** Force overwrite if tool already exists */
+  force?: boolean;
 }
 
 /**

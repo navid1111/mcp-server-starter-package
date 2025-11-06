@@ -92,12 +92,12 @@ Independent test criteria (manual)
 
 Tasks
 
-- [ ] T026 [US2] Create template: tool stub file in src/templates/add-tool/tool.ts.tmpl
-- [ ] T027 [P] [US2] Implement registry update logic (append import/export) in src/generators/addTool.ts
-- [ ] T028 [P] [US2] Implement input validation and flags (toolName) in src/cli/commands/addTool.ts
-- [ ] T029 [US2] Handle idempotency (skip or prompt on existing tool) in src/generators/addTool.ts
-- [ ] T030 [US2] Create manual smoke script add-tool-and-invoke in scripts/smoke/add-tool-and-invoke.ps1
-- [ ] T031 [US2] Document manual test steps for US2 in docs/manual-tests/us2-smoke.md
+- [x] T026 [US2] Create template: tool stub file in src/templates/add-tool/tool.ts.tmpl
+- [x] T027 [P] [US2] Implement registry update logic (append import/export) in src/generators/addTool.ts
+- [x] T028 [P] [US2] Implement input validation and flags (toolName) in src/cli/commands/addTool.ts
+- [x] T029 [US2] Handle idempotency (skip or prompt on existing tool) in src/generators/addTool.ts
+- [x] T030 [US2] Create manual smoke script add-tool-and-invoke in scripts/smoke/add-tool-and-invoke.ps1
+- [x] T031 [US2] Document manual test steps for US2 in docs/manual-tests/us2-smoke.md
 
 Parallel execution examples
 

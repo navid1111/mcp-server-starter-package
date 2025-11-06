@@ -1,0 +1,54 @@
+/**
+ * {{toolTitle}} Tool
+ *
+ * {{toolDescription}}
+ */
+
+import { z } from 'zod';
+import type { Tool } from './index.js';
+
+/**
+ * Input schema for {{toolName}}
+ */
+const {{toolName}}InputSchema = z.object({
+  // TODO: Define your input parameters here
+  // Example:
+  // message: z.string().describe('The message to process'),
+});
+
+/**
+ * {{toolTitle}} tool implementation
+ */
+export const {{toolName}}Tool: Tool = {
+  name: '{{toolName}}',
+  description: '{{toolDescription}}',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      // TODO: Define JSON Schema properties matching zod schema above
+      // Example:
+      // message: {
+      //   type: 'string',
+      //   description: 'The message to process',
+      // },
+    },
+    required: [], // TODO: Add required field names
+  },
+  handler: async (args: unknown) => {
+    // Validate and parse input
+    const input = {{toolName}}InputSchema.parse(args);
+
+    // TODO: Implement your tool logic here
+    // Example:
+    // const result = processMessage(input.message);
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: `{{toolTitle}} executed successfully. Implement your logic here.`,
+        },
+      ],
+    };
+  },
+};

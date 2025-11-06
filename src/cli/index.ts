@@ -8,10 +8,8 @@
 
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-
-// Commands will be imported here
-// import { initCommand } from './commands/init.js';
-// import { addToolCommand } from './commands/addTool.js';
+import * as addToolCommand from './commands/addTool.js';
+import * as initCommand from './commands/init.js';
 
 async function main() {
   await yargs(hideBin(process.argv))
@@ -20,20 +18,14 @@ async function main() {
     .command(
       'init',
       'Initialize a new MCP server project',
-      () => {},
-      () => {
-        // eslint-disable-next-line no-console
-        console.log('Init command - placeholder (will be implemented in next task)');
-      }
+      initCommand.builder,
+      initCommand.handler
     )
     .command(
       'add-tool',
       'Add a new tool to an existing MCP server',
-      () => {},
-      () => {
-        // eslint-disable-next-line no-console
-        console.log('Add-tool command - placeholder (will be implemented in next task)');
-      }
+      addToolCommand.builder,
+      addToolCommand.handler
     )
     .demandCommand(1, 'You must provide a command')
     .help('h')

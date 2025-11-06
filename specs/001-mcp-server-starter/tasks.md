@@ -40,7 +40,7 @@ Independent test criteria (manual)
 
 Tasks
 
-- [ ] T008 Implement CLI entrypoint using yargs in src/cli/index.ts
+- [x] T008 Implement CLI entrypoint using yargs in src/cli/index.ts
 - [ ] T009 [P] Scaffold init command (flags/prompts placeholders) in src/cli/commands/init.ts
 - [ ] T010 [P] Scaffold add-tool command (flags/prompts placeholders) in src/cli/commands/addTool.ts
 - [ ] T011 Implement filesystem utilities (idempotent write, exists, copy) in src/lib/fs.ts

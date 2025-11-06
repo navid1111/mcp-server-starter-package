@@ -1,0 +1,68 @@
+openapi: 3.1.0
+info:
+  title: Generated MCP Server (HTTP Adapter)
+  version: 0.1.0
+  description: |
+    Minimal optional HTTP surface for the generated MCP server.
+    Core MCP runs over its native transport; this adapter is provided for smoke tests and demos.
+servers:
+  - url: http://localhost:8787
+paths:
+  /health:
+    get:
+      summary: Health check
+      operationId: getHealth
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [ok]
+                required: [status]
+  /tools/{toolName}/invoke:
+    post:
+      summary: Invoke a tool by name (demo adapter)
+      operationId: invokeTool
+      parameters:
+        - name: toolName
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToolInvokeRequest'
+      responses:
+        '200':
+          description: Invocation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolInvokeResponse'
+        '400':
+          description: Bad input
+        '404':
+          description: Tool not found
+components:
+  schemas:
+    ToolInvokeRequest:
+      type: object
+      description: Input payload for the tool (shape depends on tool schema)
+      additionalProperties: true
+    ToolInvokeResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        data:
+          description: Tool-specific response data
+          additionalProperties: true
+      required: [ok]

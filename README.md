@@ -124,26 +124,37 @@ export const calculatorTool: Tool = {
   },
   handler: async (args: unknown) => {
     const input = calculatorInputSchema.parse(args);
-    
+
     let result: number;
     switch (input.operation) {
-      case 'add': result = input.a + input.b; break;
-      case 'subtract': result = input.a - input.b; break;
-      case 'multiply': result = input.a * input.b; break;
-      case 'divide': result = input.a / input.b; break;
+      case 'add':
+        result = input.a + input.b;
+        break;
+      case 'subtract':
+        result = input.a - input.b;
+        break;
+      case 'multiply':
+        result = input.a * input.b;
+        break;
+      case 'divide':
+        result = input.a / input.b;
+        break;
     }
-    
+
     return {
-      content: [{
-        type: 'text',
-        text: `Result: ${result}`,
-      }],
+      content: [
+        {
+          type: 'text',
+          text: `Result: ${result}`,
+        },
+      ],
     };
   },
 };
 ```
 
 Add it to your server:
+
 ```bash
 npx mcp-server-starter add-tool --name calculator
 # Edit src/mcp/tools/calculator.ts with the code above
@@ -160,12 +171,14 @@ The tool is automatically registered - no manual imports needed!
 Initialize a new MCP server project.
 
 **Options:**
+
 - `--name, -n` - Project name (kebab-case required)
 - `--description, -d` - Project description
 - `--preset, -p` - Template preset (`minimal` or `examples`)
 - `--with-http-adapter` - Include HTTP transport adapter
 
 **Examples:**
+
 ```bash
 npx mcp-server-starter init --name my-server
 npx mcp-server-starter init --name my-server --preset minimal
@@ -177,12 +190,14 @@ npx mcp-server-starter init --name my-server --with-http-adapter
 Add a new tool to an existing MCP server.
 
 **Options:**
+
 - `--name, -n` - Tool name (camelCase required)
 - `--title, -t` - Tool display title
 - `--description, -d` - Tool description
 - `--force, -f` - Overwrite if tool exists
 
 **Examples:**
+
 ```bash
 npx mcp-server-starter add-tool --name myTool
 npx mcp-server-starter add-tool --name calculator --title "Calculator"
@@ -192,6 +207,7 @@ npx mcp-server-starter add-tool --name calculator --force
 ## 🎯 Use Cases
 
 Build MCP servers for:
+
 - 🌤️ **Weather APIs** - Get current weather and forecasts
 - 🗄️ **Database Operations** - Query, insert, update data
 - 📁 **File System** - Read, write, search files
@@ -204,6 +220,7 @@ Build MCP servers for:
 ## 🧪 Testing Your Server
 
 The generated server works with:
+
 - ✅ **Claude Desktop** - Native MCP support
 - ✅ **Custom MCP clients** - Using `@modelcontextprotocol/sdk`
 - ✅ **OpenAI Function Calling** - With custom integration
@@ -231,6 +248,7 @@ MIT © navid1111
 ## 🙏 Acknowledgments
 
 Built with:
+
 - [@modelcontextprotocol/sdk](https://www.npmjs.com/package/@modelcontextprotocol/sdk)
 - [TypeScript](https://www.typescriptlang.org/)
 - [yargs](https://yargs.js.org/)

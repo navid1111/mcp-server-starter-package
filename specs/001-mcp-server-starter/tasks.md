@@ -41,9 +41,9 @@ Independent test criteria (manual)
 Tasks
 
 - [x] T008 Implement CLI entrypoint using yargs in src/cli/index.ts
-- [ ] T009 [P] Scaffold init command (flags/prompts placeholders) in src/cli/commands/init.ts
-- [ ] T010 [P] Scaffold add-tool command (flags/prompts placeholders) in src/cli/commands/addTool.ts
-- [ ] T011 Implement filesystem utilities (idempotent write, exists, copy) in src/lib/fs.ts
+- [x] T009 [P] Scaffold init command (flags/prompts placeholders) in src/cli/commands/init.ts
+- [x] T010 [P] Scaffold add-tool command (flags/prompts placeholders) in src/cli/commands/addTool.ts
+- [x] T011 Implement filesystem utilities (idempotent write, exists, copy) in src/lib/fs.ts
 - [ ] T012 Implement template engine/renderer (variables, presets) in src/lib/templates.ts
 - [ ] T013 Define generator types (InitOptions, AddToolOptions) in src/types/generators.ts
 - [ ] T014 Ensure tsup build emits dist/esm and dist/cjs and maps bin in package.json

@@ -8,7 +8,13 @@
 // Placeholder export to satisfy build
 export const version = '0.1.0';
 
-// TODO: Export generators and types in later phases
-// export * from './generators/project';
-// export * from './generators/addTool';
-// export * from './types/generators';
+// Export types (Phase 2)
+export type * from './types/generators.js';
+
+// Export utilities (Phase 2)
+export * as fsUtils from './lib/fs.js';
+export * as templateUtils from './lib/templates.js';
+
+// TODO: Export generators in later phases
+// export * from './generators/project.js';
+// export * from './generators/addTool.js';

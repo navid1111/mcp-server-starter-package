@@ -1,22 +1,40 @@
 # mcp-server-starter
 
-> Scaffold a ready-to-run Model Context Protocol (MCP) server with a single command
+Scaffold a ready-to-run Model Context Protocol (MCP) server with one command.
 
-[![npm version](https://badge.fury.io/js/mcp-server-starter.svg)](https://www.npmjs.com/package/mcp-server-starter)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+This package is a developer productivity tool for anyone building MCP servers. Instead of repeatedly wiring up server bootstrapping, tool registration, TypeScript config, and packaging by hand, `mcp-server-starter` generates a clean project skeleton so you can focus on the tools themselves.
 
-## ✨ Features
+## Why this exists
 
-- 🚀 **Instant Setup** - Generate a complete MCP server in seconds
-- 🛠️ **Easy Tool Management** - Add new tools with automatic registry updates
-- 📦 **TypeScript Ready** - Full type safety with strict TypeScript configuration
-- ✅ **Production Ready** - Follows MCP specification, works with Claude Desktop
-- 🔧 **Zero Config** - Sensible defaults, just start coding your tools
-- 🎯 **Developer Friendly** - Interactive prompts, clear error messages
+MCP is simple once the first project is already set up. The annoying part is the repeated boilerplate: server entry point, tool folders, build config, package metadata, and registration logic. This starter removes that setup tax.
 
-## 🎬 Quick Start
+## What you get
 
-### Create a new MCP server
+- interactive CLI for bootstrapping a new MCP server
+- starter project with TypeScript configuration already in place
+- sample tool implementation
+- tool registry structure ready for extension
+- helper flow for adding new tools without manual wiring
+- packaging suitable for publishing a reusable MCP server
+
+## Architecture overview
+
+```mermaid
+flowchart TD
+    A[CLI Entry
+dist/cli/index.js] --> B[Command Parser]
+    B --> C[init]
+    B --> D[add-tool]
+    C --> E[Template Engine]
+    E --> F[Generated MCP Server Project]
+    D --> G[Tool Template + Registry Update]
+    G --> F
+    F --> H[Build + Run + Connect in MCP Client]
+```
+
+## Quick start
+
+Generate a new server:
 
 ```bash
 npx mcp-server-starter init --name my-awesome-server
@@ -26,234 +44,141 @@ npm run build
 npm start
 ```
 
-That's it! You now have a working MCP server with a sample echo tool.
-
-## 📚 Usage
-
-### Initialize a new server
+Add a tool later:
 
 ```bash
-# Interactive mode
-npx mcp-server-starter init
-
-# With options
-npx mcp-server-starter init --name my-server --preset minimal
-
-# With description
-npx mcp-server-starter init --name my-server --description "My custom MCP server"
-```
-
-### Add tools to your server
-
-```bash
-# Navigate to your server directory
-cd my-server
-
-# Add a new tool (interactive)
-npx mcp-server-starter add-tool
-
-# Add with options
 npx mcp-server-starter add-tool --name calculator --title "Calculator" --description "Performs calculations"
-
-# Force overwrite existing tool
-npx mcp-server-starter add-tool --name calculator --force
 ```
 
-### What gets generated?
+## Example generated structure
 
-```
-my-server/
-├── package.json          # MCP SDK dependencies included
-├── tsconfig.json         # Strict TypeScript config
-├── README.md            # Complete documentation
-├── .gitignore           # Sensible defaults
+```text
+my-awesome-server/
+├── package.json
+├── tsconfig.json
+├── README.md
+├── .gitignore
 └── src/
-    ├── server.ts        # MCP server entry point
+    ├── server.ts
     └── mcp/
         └── tools/
-            ├── index.ts     # Tool registry (auto-updated!)
-            └── echo.ts      # Sample tool
+            ├── index.ts
+            └── echo.ts
 ```
 
-## 🔌 Connect to Claude Desktop
+## Example workflow
 
-Add to your `claude_desktop_config.json`:
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant CLI as mcp-server-starter
+    participant Repo as New Server Repo
+    participant Client as MCP Client
+
+    Dev->>CLI: init --name weather-server
+    CLI->>Repo: scaffold files
+    Dev->>CLI: add-tool --name forecast
+    CLI->>Repo: create tool + update registry
+    Dev->>Repo: implement business logic
+    Dev->>Repo: npm run build
+    Dev->>Client: connect dist/server.js
+```
+
+## Example: scaffold a server and connect it to a client
+
+1. Generate the project.
+2. Build it.
+3. Add the generated `dist/server.js` path to your MCP client config.
+
+Example config snippet:
 
 ```json
 {
   "mcpServers": {
-    "my-server": {
+    "my-awesome-server": {
       "command": "node",
-      "args": ["/absolute/path/to/my-server/dist/server.js"]
+      "args": ["/absolute/path/to/my-awesome-server/dist/server.js"]
     }
   }
 }
 ```
 
-Restart Claude Desktop, and your tools will be available!
-
-## 🛠️ Tool Development
-
-### Example: Calculator Tool
+## Example tool implementation
 
 ```typescript
-// src/mcp/tools/calculator.ts
 import { z } from 'zod';
 import type { Tool } from './index.js';
 
-const calculatorInputSchema = z.object({
-  operation: z.enum(['add', 'subtract', 'multiply', 'divide']),
-  a: z.number(),
-  b: z.number(),
+const inputSchema = z.object({
+  name: z.string(),
 });
 
-export const calculatorTool: Tool = {
-  name: 'calculator',
-  description: 'Performs basic math operations',
+export const helloTool: Tool = {
+  name: 'hello',
+  description: 'Greets a user by name',
   inputSchema: {
     type: 'object',
     properties: {
-      operation: {
-        type: 'string',
-        enum: ['add', 'subtract', 'multiply', 'divide'],
-      },
-      a: { type: 'number' },
-      b: { type: 'number' },
+      name: { type: 'string' },
     },
-    required: ['operation', 'a', 'b'],
+    required: ['name'],
   },
   handler: async (args: unknown) => {
-    const input = calculatorInputSchema.parse(args);
-
-    let result: number;
-    switch (input.operation) {
-      case 'add':
-        result = input.a + input.b;
-        break;
-      case 'subtract':
-        result = input.a - input.b;
-        break;
-      case 'multiply':
-        result = input.a * input.b;
-        break;
-      case 'divide':
-        result = input.a / input.b;
-        break;
-    }
-
+    const input = inputSchema.parse(args);
     return {
-      content: [
-        {
-          type: 'text',
-          text: `Result: ${result}`,
-        },
-      ],
+      content: [{ type: 'text', text: `Hello, ${input.name}!` }],
     };
   },
 };
 ```
 
-Add it to your server:
-
-```bash
-npx mcp-server-starter add-tool --name calculator
-# Edit src/mcp/tools/calculator.ts with the code above
-npm run build
-npm start
-```
-
-The tool is automatically registered - no manual imports needed!
-
-## 📖 CLI Commands
+## CLI commands
 
 ### `init`
+Create a new MCP server scaffold.
 
-Initialize a new MCP server project.
-
-**Options:**
-
-- `--name, -n` - Project name (kebab-case required)
-- `--description, -d` - Project description
-- `--preset, -p` - Template preset (`minimal` or `examples`)
-- `--with-http-adapter` - Include HTTP transport adapter
-
-**Examples:**
+Examples:
 
 ```bash
-npx mcp-server-starter init --name my-server
+npx mcp-server-starter init
 npx mcp-server-starter init --name my-server --preset minimal
-npx mcp-server-starter init --name my-server --with-http-adapter
+npx mcp-server-starter init --name my-server --description "Internal tools server"
 ```
 
 ### `add-tool`
+Add a new tool into an existing server scaffold.
 
-Add a new tool to an existing MCP server.
-
-**Options:**
-
-- `--name, -n` - Tool name (camelCase required)
-- `--title, -t` - Tool display title
-- `--description, -d` - Tool description
-- `--force, -f` - Overwrite if tool exists
-
-**Examples:**
+Examples:
 
 ```bash
-npx mcp-server-starter add-tool --name myTool
-npx mcp-server-starter add-tool --name calculator --title "Calculator"
+npx mcp-server-starter add-tool
+npx mcp-server-starter add-tool --name calculator
 npx mcp-server-starter add-tool --name calculator --force
 ```
 
-## 🎯 Use Cases
+## Project structure
 
-Build MCP servers for:
+```text
+mcp-server-starter-package/
+├── src/
+│   ├── cli/
+│   ├── commands/
+│   ├── templates/
+│   └── utils/
+├── tests/
+├── docs/
+└── package.json
+```
 
-- 🌤️ **Weather APIs** - Get current weather and forecasts
-- 🗄️ **Database Operations** - Query, insert, update data
-- 📁 **File System** - Read, write, search files
-- 🧮 **Calculations** - Math, conversions, computations
-- 🌐 **Web Scraping** - Fetch and parse web content
-- 📧 **Email** - Send notifications and messages
-- 🔍 **Search Engines** - Custom search tools
-- 🤖 **Custom APIs** - Integrate any REST API
+## Tech stack
 
-## 🧪 Testing Your Server
+- TypeScript
+- Node.js
+- yargs
+- Jest
+- tsup
+- Changesets
 
-The generated server works with:
+## Best fit
 
-- ✅ **Claude Desktop** - Native MCP support
-- ✅ **Custom MCP clients** - Using `@modelcontextprotocol/sdk`
-- ✅ **OpenAI Function Calling** - With custom integration
-- ✅ **Any JSON-RPC client** - Standard stdio transport
-
-## 📋 Requirements
-
-- Node.js >= 18.0.0
-- npm or yarn
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-MIT © navid1111
-
-## 🔗 Links
-
-- [Model Context Protocol](https://modelcontextprotocol.io/)
-- [MCP SDK](https://github.com/modelcontextprotocol/sdk)
-- [Claude Desktop](https://claude.ai/download)
-
-## 🙏 Acknowledgments
-
-Built with:
-
-- [@modelcontextprotocol/sdk](https://www.npmjs.com/package/@modelcontextprotocol/sdk)
-- [TypeScript](https://www.typescriptlang.org/)
-- [yargs](https://yargs.js.org/)
-- [zod](https://zod.dev/)
-
----
-
-**Made with ❤️ for the MCP community**
+This project is especially strong for AI tooling, developer experience, and platform-engineering roles because it turns protocol knowledge into a reusable developer product.
